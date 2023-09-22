@@ -5,7 +5,6 @@ import WeatherDays from './Widgets/WeatherDays';
 // import WeatherGraph from './Widgets/WeatherGraph';
 import WeatherHighlights from './Widgets/WeatherHighlights';
 import WeatherNow from './Widgets/WeatherNow';
-import Loader from './Loader';
 
 function MainGrid() {
 	return (

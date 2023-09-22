@@ -143,6 +143,7 @@ function transformWeeklyData(data) {
 
 	return transformedData;
 }
+/* eslint-disable react/prop-types */
 
 function WeatherProvider({ children }) {
 	const [
