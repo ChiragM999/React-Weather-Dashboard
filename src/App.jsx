@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 import { useWeather } from './context/WeatherContext';
 import { getResults } from './services/apiWeather';
 
-// import { search } from './services/apiWeather';
-
 function App() {
 	const { dispatch } = useWeather();
 
