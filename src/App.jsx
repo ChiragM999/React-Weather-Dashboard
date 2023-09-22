@@ -1,8 +1,9 @@
 import MainGrid from './components/MainGrid';
 import Header from './components/Header';
 
-function App() {
+// import { search } from './services/apiWeather';
 
+function App() {
 	return (
 		<div className="grid h-screen grid-rows-[auto_1fr] bg-gray-50 text-gray-700">
 			<Header />

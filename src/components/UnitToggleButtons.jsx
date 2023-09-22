@@ -1,10 +1,12 @@
+import { useWeather } from '../context/WeatherContext';
+
 function UnitToggleButtons() {
 	const units = [
 		{ value: 'metric', label: '°C' },
 		{ value: 'imperial', label: '°F' },
 	];
 
-	const currentUnit = 'metric'; //To add dynamic units here
+	const { units: currentUnit, dispatch } = useWeather();
 
 	return (
 		<div className="border border-gray-100 shadow-sm rounded-sm p-1 flex gap-1 bg-gray-0">
@@ -21,6 +23,7 @@ function UnitToggleButtons() {
 					}`}
 					disabled={currentUnit === unit.value}
 					key={unit.value}
+					onClick={() => dispatch({ type: `changeUnits`, payload: unit.value })}
 				>
 					{unit.label}
 				</button>

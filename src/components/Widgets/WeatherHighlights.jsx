@@ -4,24 +4,27 @@ import { FiWind } from 'react-icons/fi';
 import { WiHumidity } from 'react-icons/wi';
 import { PiWavesLight } from 'react-icons/pi';
 import { LiaTemperatureLowSolid } from 'react-icons/lia';
+import { useWeather } from '../../context/WeatherContext';
+import { formatTime, getFormattedUnits } from '../../utils/helpers';
 
 function WeatherHighlights() {
 	// Future Plan: Can map over the items and set their values dynamically using an object, rather than doing it statically.
+	const { units, city, weatherData } = useWeather();
 
 	return (
-		<>
-			<h2 className="font-bold">Today&apos;s Highlights</h2>
+		<div className="row-start-2 col-start-1">
+			<h2 className="font-bold mb-2">Today&apos;s Highlights</h2>
 			<div className="grid grid-cols-2 gap-4">
 				<WeatherHighlight
 					icon={<HiOutlineSun />}
 					title={'Sunrise'}
-					value={'6:40 AM'}
+					value={formatTime(weatherData.sunrise, city.timezone)}
 				/>
 
 				<WeatherHighlight
 					icon={<HiOutlineMoon />}
 					title={'Sunset'}
-					value={'6:40 PM'}
+					value={formatTime(weatherData.sunset, city.timezone)}
 				/>
 
 				<WeatherHighlight icon={<FiWind />} title={'Wind'} value={'12 Kmph'} />
@@ -29,22 +32,24 @@ function WeatherHighlights() {
 				<WeatherHighlight
 					icon={<WiHumidity />}
 					title={'Humidity'}
-					value={'50%'}
+					value={`${weatherData.humidity} %`}
 				/>
 
 				<WeatherHighlight
 					icon={<LiaTemperatureLowSolid />}
 					title={'Feels Like'}
-					value={'36°C'}
+					value={`${Math.round(weatherData.feelsLike)} ${getFormattedUnits(
+						units
+					)}`}
 				/>
 
 				<WeatherHighlight
 					icon={<PiWavesLight />}
 					title={'Pressure'}
-					value={'1003 hPa'}
+					value={`${weatherData.pressure} hPa`}
 				/>
 			</div>
-		</>
+		</div>
 	);
 }
 export default WeatherHighlights;
