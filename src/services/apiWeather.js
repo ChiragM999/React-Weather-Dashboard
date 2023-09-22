@@ -10,19 +10,17 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 // URL Structure
 // 'api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}';
 
-export async function getResultsFromCurrentLocation({ lat, lon }, type, units) {
+export async function getResultsFromCurrentLocation({ lat, lon }, type) {
 	try {
-		// Make a GET request to the OpenWeatherMap API
 		const response = await axios.get(`${BASE_URL}/${type}`, {
 			params: {
 				lat,
 				lon,
 				appid: API_KEY, // API key
-				units,
+				units: `metric`,
 			},
 		});
 
-		// Check if the response status is OK (200)
 		if (response.status === 200) {
 			const locationData = response.data;
 
@@ -36,7 +34,7 @@ export async function getResultsFromCurrentLocation({ lat, lon }, type, units) {
 	}
 }
 
-export async function getResults(lat, lon, units, dispatch) {
+export async function getResults(lat, lon, units) {
 	const resultCurrent = await getResultsFromCurrentLocation(
 		{ lat, lon },
 		`weather`,
@@ -48,6 +46,4 @@ export async function getResults(lat, lon, units, dispatch) {
 		units
 	);
 	return { resultCurrent, resultWeekly };
-	// dispatch({ type: `dataReceived/current`, payload: resultCurrent });
-	// dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
 }

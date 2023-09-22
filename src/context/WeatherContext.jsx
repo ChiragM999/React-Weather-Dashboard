@@ -27,6 +27,7 @@ const initialState = {
 		humidity: 0,
 		sunrise: 0,
 		sunset: 0,
+		wind: 0,
 	},
 
 	weeklyData: [
@@ -121,6 +122,7 @@ function transformCurrentWeatherData(data) {
 			humidity: data.main.humidity,
 			sunrise: data.sys.sunrise,
 			sunset: data.sys.sunset,
+			wind: data.wind.speed,
 		},
 	};
 }

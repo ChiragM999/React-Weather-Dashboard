@@ -1,6 +1,11 @@
 import { HiArrowDown, HiArrowUp } from 'react-icons/hi2';
+import FormattedTemperature from './FormattedTemperature';
+import { useWeather } from '../context/WeatherContext';
+import { DateTime } from 'luxon';
 
-function WeatherDay() {
+function WeatherDay({ index = 0 }) {
+	const { weeklyData } = useWeather();
+
 	return (
 		<div className="flex items-center justify-between p-2">
 			<img
@@ -8,22 +13,26 @@ function WeatherDay() {
 				src="https://openweathermap.org/img/wn/10d@2x.png"
 				alt=""
 			/>
-			<p className="text-sm">Sunny</p>
+			<p className="text-sm">{weeklyData[index].main}</p>
 
 			<p className="text-lg tracking-wide">
-				<span className="font-semibold">28</span>°C
+				<FormattedTemperature temp={weeklyData[index].temp} />
 			</p>
 
 			<div className="text-xs flex flex-col gap-1">
 				<p className="flex items-center justify-center gap-1">
-					<HiArrowUp /> 33°C
+					<HiArrowUp />{' '}
+					<FormattedTemperature temp={weeklyData[index].maxTemp} />
 				</p>
 				<p className="flex items-center justify-center gap-1">
-					<HiArrowDown /> 22°C
+					<HiArrowDown />{' '}
+					<FormattedTemperature temp={weeklyData[index].minTemp} />
 				</p>
 			</div>
 
-			<p className="text-md ">19 Sep</p>
+			<p className="text-md ">
+				{DateTime.fromSeconds(weeklyData[index].date).toFormat('LLL dd')}
+			</p>
 		</div>
 	);
 }

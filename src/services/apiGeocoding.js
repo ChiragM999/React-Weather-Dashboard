@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { BASE_URL_GEOCODING } from '../config/config';
-import { getResultsFromCurrentLocation } from './apiWeather';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export async function getCurrentLocation() {

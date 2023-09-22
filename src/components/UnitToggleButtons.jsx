@@ -23,7 +23,13 @@ function UnitToggleButtons() {
 					}`}
 					disabled={currentUnit === unit.value}
 					key={unit.value}
-					onClick={() => dispatch({ type: `changeUnits`, payload: unit.value })}
+					onClick={() =>
+						dispatch({
+							type: `changeUnits`,
+							payload: unit.value,
+							units: unit.value,
+						})
+					}
 				>
 					{unit.label}
 				</button>

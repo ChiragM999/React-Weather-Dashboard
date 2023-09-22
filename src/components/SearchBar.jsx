@@ -10,28 +10,73 @@ import { getResults } from '../services/apiWeather';
 
 function SearchBar() {
 	const [query, setQuery] = useState('');
-	const { units, dispatch } = useWeather();
+	const { dispatch } = useWeather();
+
+	async function fetchData(lat, lon) {
+		try {
+			dispatch({ type: `fetch/current` });
+			dispatch({ type: `fetch/weekly` });
+
+			const { resultCurrent, resultWeekly } = await getResults(lat, lon);
+
+			dispatch({ type: `dataReceived/current`, payload: resultCurrent });
+			dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
+		} catch (error) {
+			console.error('Error:', error.message);
+			// Handle the error, e.g., dispatch an error action or show an error message to the user.
+		}
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-
-		const [lat, lon] = await getLocationCoords(query);
-
-		console.log('returning value', lat, lon);
-		const { resultCurrent, resultWeekly } = getResults(lat, lon, units);
-
-		dispatch({ type: `dataReceived/current`, payload: resultCurrent });
-		dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
+		try {
+			const [lat, lon] = await getLocationCoords(query);
+			console.log('returning value', lat, lon);
+			await fetchData(lat, lon);
+		} catch (error) {
+			console.error('Error:', error.message);
+			// Handle the error, e.g., dispatch an error action or show an error message to the user.
+		}
 	}
 
 	async function handleLocationEnable() {
-		const { lat, lon } = await getCurrentLocation();
-
-		const { resultCurrent, resultWeekly } = getResults(lat, lon, units);
-
-		dispatch({ type: `dataReceived/current`, payload: resultCurrent });
-		dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
+		try {
+			const { lat, lon } = await getCurrentLocation();
+			await fetchData(lat, lon);
+		} catch (error) {
+			console.error('Error:', error.message);
+			// Handle the error, e.g., dispatch an error action or show an error message to the user.
+		}
 	}
+
+	// async function handleSubmit(e) {
+	// 	try {
+	// 		dispatch({ type: `fetch/current` });
+	// 		dispatch({ type: `fetch/weekly` });
+
+	// 		const [lat, lon] = await getLocationCoords(query);
+
+	// 		console.log('returning value', lat, lon);
+	// 		const { resultCurrent, resultWeekly } = await getResults(lat, lon);
+
+	// 		dispatch({ type: `dataReceived/current`, payload: resultCurrent });
+	// 		dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
+	// 	} catch (error) {
+	// 		console.error('Error:', error.message);
+	// 		// Handle the error, e.g., dispatch an error action or show an error message to the user.
+	// 	}
+	// }
+
+	// async function handleLocationEnable() {
+	// 	dispatch({ type: `fetch/current` });
+	// 	dispatch({ type: `fetch/weekly` });
+	// 	const { lat, lon } = await getCurrentLocation();
+
+	// 	const { resultCurrent, resultWeekly } = await getResults(lat, lon);
+
+	// 	dispatch({ type: `dataReceived/current`, payload: resultCurrent });
+	// 	dispatch({ type: `dataReceived/weekly`, payload: resultWeekly });
+	// }
 
 	return (
 		<>
