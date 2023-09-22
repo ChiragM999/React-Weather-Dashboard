@@ -11,7 +11,7 @@ Forecastify is a web application that provides current weather and 5 day forecas
 
 ## Technologies Used
 - React.js for building the frontend.
-- JavaScript for client-side logic.
+- Vite for Module Bundling.
 - Luxon library for date and time formatting.
 - Axios library for making API requests.
 - Tailwind CSS for styling.
@@ -24,17 +24,9 @@ To run Forecastify locally, follow these steps:
 3. Create a `.env` file in the root directory of the project.
 4. Inside the `.env` file, add the following line
    `VITE_API_KEY=YOUR API KEY`
+5. Replace `YOUR API KEY` in the `.env` file with your actual OpenWeatherMap API key.
+6. Save the `.env` file.
+7. Start the development server using `npm run dev`.
 
-## Folder Structure
-- `src/` contains the source code for the application.
-- `components/` contains React components for different parts of the app.
-- `styles/` contains CSS stylesheets.
-- `utils/` contains utility functions.
-- `context/` contains the application's state management using React Context.
-
-## License
-This project is open-source and available under the [MIT License](LICENSE).
-
-## Contact Information
-For questions or feedback, please contact [Your Email Address].
-
+## Live Demo
+Check out the live version of "Forecastify" [here](https://forecastify-chiragm999.netlify.app/).
